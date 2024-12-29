@@ -44,7 +44,7 @@ export class LoginComponent {
           console.log('Response: ', data);
           this.authService.storeToken(data.token);
 
-          const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/dashboard';
+          const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/welcome';
           this.router.navigate([returnUrl]);
         },
         error: (error) => {

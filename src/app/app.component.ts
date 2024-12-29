@@ -20,7 +20,13 @@ export class AppComponent {
 
   constructor(private router: Router) {
     this.router.events.subscribe(() => {
-      this.isHideHeaderFooter = this.hiddenToolbarRoutes.includes(this.router.url)
+      this.isHideHeaderFooter = false;
+      this.hiddenToolbarRoutes.forEach(route => {
+        if (this.router.url.includes(route)) {
+          this.isHideHeaderFooter = true;
+        }
+      });
+      // this.isHideHeaderFooter = this.hiddenToolbarRoutes.includes(this.router.url)
     });
   }
 }

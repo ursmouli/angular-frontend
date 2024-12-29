@@ -3,6 +3,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { AuthGuard } from './gaurds/auth.gaurd';
+import { LogoutComponent } from './components/logout/logout.component';
 
 export const routes: Routes = [
     { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard] },
