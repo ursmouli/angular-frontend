@@ -1,0 +1,12 @@
+<ng-container *ngIf="!isHideHeaderFooter; else loadingTemplate">
+  <app-header></app-header>
+
+  <router-outlet />
+
+  <app-footer></app-footer>
+</ng-container>
+
+<ng-template #loadingTemplate>
+  <router-outlet />
+</ng-template>
+
