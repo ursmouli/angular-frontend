@@ -41,6 +41,10 @@ export class AuthService {
     return this.getRoles().includes(role);
   }
 
+  hasRoles(roles: string[]): boolean { 
+    return roles.some(role => this.hasRole(role));
+  }
+
   isLoggedIn(): boolean {
     return localStorage.getItem(this.tokenKey) !== null;
   }

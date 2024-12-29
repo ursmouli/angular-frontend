@@ -10,7 +10,15 @@ export class AuthGuard implements CanActivate {
   private router = inject(Router);
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const expectedRoles = route.data['roles'] as string[];
     if (this.authService.isLoggedIn()) {
+      if (expectedRoles) {
+        if (this.authService.hasRoles(expectedRoles)) {
+          return true;
+        }
+        this.router.navigate(['/forbidden']);
+        return false;
+      }
       return true;
     }
 
