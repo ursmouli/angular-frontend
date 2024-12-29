@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginResponse } from '../dto/login.response';
+import { jwtDecode } from 'jwt-decode';
 
 
 @Injectable({
@@ -25,6 +26,19 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  getRoles(): string[] {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.roles || [];
+    }
+    return [];
+  }
+
+  hasRole(role: string): boolean {
+    return this.getRoles().includes(role);
   }
 
   isLoggedIn(): boolean {

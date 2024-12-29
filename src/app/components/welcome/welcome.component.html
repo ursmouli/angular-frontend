@@ -1,1 +1,10 @@
-<p>welcome works!</p>
+<p>welcome works!!</p>
+
+<div *ngIf="authService.hasRole('ROLE_ADMIN')">
+  <p>Admin Content</p>
+</div>
+
+
+<div *ngIf="authService.hasRole('ROLE_USER')">
+  <p>User Content</p>
+</div>
