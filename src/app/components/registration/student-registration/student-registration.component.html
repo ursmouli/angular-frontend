@@ -16,12 +16,48 @@
         <input matInput formControlName="lastName" placeholder="Enter last name" />
         <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
       </mat-form-field>
-    
-      <app-address [addressForm]="addressForm" class="full-width"></app-address>
+
+      <!-- permanent address -->
+      <mat-divider></mat-divider>
+      <h3>Permanent Address</h3>
+      <app-address [addressForm]="permanentAddress" class="full-width"></app-address>
+
+      <!-- residential address -->
+      <mat-checkbox formControlName="sameAsPermanentAddress">Same as Permanent Address</mat-checkbox>
+      <mat-divider></mat-divider>
+      <div *ngIf="!registrationForm.get('sameAsPermanentAddress')?.value">
+        <h3>Residential Address</h3>
+        <app-address [addressForm]="residentialAddress" class="full-width"></app-address>
+      </div>
+      <br />
+
+      <!-- parents details -->
+      <!-- guardian details -->
+      
+
+      <!-- siblings details -->
+      <mat-divider></mat-divider>
+      <h3>Siblings Details</h3>
+      <div formArrayName="siblings" class="sibling-container">
+        <div *ngFor="let sibling of siblings.controls; let i = index" [formGroupName]="i" class="sibling-fields">
+          <mat-form-field appearance="fill">
+            <mat-label>Sibling Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter sibling name" />
+            <mat-error *ngIf="sibling.get('name')?.hasError('required')">Sibling Name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Sibling Age</mat-label>
+            <input matInput formControlName="age" placeholder="Enter sibling age" />
+            <mat-error *ngIf="sibling.get('age')?.hasError('required')">Sibling Age is required</mat-error>
+          </mat-form-field>
+          <button mat-button color="warn" (click)="removeSibling(i)">Remove</button>
+        </div>
+        <button mat-raised-button color="primary" (click)="addSibling()">Add Sibling</button>
+      </div>
     
       <button mat-raised-button color="primary" 
         (click)="onSubmit()" 
-        [disabled]="registrationForm.invalid && addressForm.invalid">Submit</button>
+        [disabled]="!isValidForm()">Submit</button>
     </form>
   </div> 
 </div>

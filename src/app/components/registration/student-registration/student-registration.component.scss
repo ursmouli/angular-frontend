@@ -1,1 +1,21 @@
 
+.sibling-container {
+  margin-top: 16px;
+}
+
+.sibling-fields {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.sibling-fields mat-form-field {
+  margin-bottom: 8px;
+}
+
+.sibling-fields button {
+  align-self: flex-start;
+}
