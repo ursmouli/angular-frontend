@@ -1,0 +1,74 @@
+<div class="registration-container">
+  <div class="registration-header">
+    <h2>User Registration</h2>
+  </div>
+  <div class="registration-body">
+    <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
+      <!-- First Name -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>First Name</mat-label>
+        <input matInput type="text" placeholder="first name" formControlName="firstName">
+        <mat-error *ngIf="userRegistrationForm.get('firstName')?.hasError('required')">
+          First Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Last Name -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Last Name</mat-label>
+        <input matInput type="text" placeholder="last name" formControlName="lastName">
+        <mat-error *ngIf="userRegistrationForm.get('lastName')?.hasError('required')">
+          Last Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="email" formControlName="email">
+        <mat-error *ngIf="userRegistrationForm.get('email')?.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="userRegistrationForm.get('email')?.hasError('email')">
+          Please enter valid email.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="password" formControlName="password">
+        <mat-error *ngIf="userRegistrationForm.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="userRegistrationForm.get('password')?.hasError('minlength')">
+          Password must be at least 6 characters long.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Date of birth -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="userRegistrationForm.get('dateOfBirth')?.hasError('required')">
+          Date of Birth is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Gender -->
+      <mat-radio-group formControlName="gender" class="gender-group">
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+          <mat-radio-button value="other">Other</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="userRegistrationForm.get('gender')?.hasError('required')">
+        Gender is required
+      </mat-error>
+      <br/>
+      <!-- Submit -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="userRegistrationForm.invalid">Register</button>
+    </form>
+  </div>
+</div>

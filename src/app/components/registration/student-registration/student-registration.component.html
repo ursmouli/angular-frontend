@@ -1,0 +1,28 @@
+<div class="registration-container">
+  <div class="registration-header">
+    <h2>Student Registration</h2>
+  </div>
+  
+  <div class="registration-body">
+    <form [formGroup]="registrationForm">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="Enter first name" />
+        <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">First Name is required</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="Enter last name" />
+        <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
+      </mat-form-field>
+    
+      <app-address [addressForm]="addressForm" class="full-width"></app-address>
+    
+      <button mat-raised-button color="primary" 
+        (click)="onSubmit()" 
+        [disabled]="registrationForm.invalid && addressForm.invalid">Submit</button>
+    </form>
+  </div> 
+</div>
+

@@ -1,12 +1,13 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { UserRegistrationComponent } from './components/registration/user-registration/user-registration.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { AuthGuard } from './gaurds/auth.gaurd';
 import { Roles } from './enum/roles';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
+import { StudentRegistrationComponent } from './components/registration/student-registration/student-registration.component';
 
 export const routes: Routes = [
     {
@@ -28,7 +29,11 @@ export const routes: Routes = [
       data: { roles: [Roles.USER] } 
     },
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'userregistration', component: UserRegistrationComponent },
+    {
+      path: 'studentregistration', 
+      component: StudentRegistrationComponent
+    },
     { path: 'forbidden', component: ForbiddenComponent },
     { path: '**', redirectTo: 'login' } // Default route
 ];
