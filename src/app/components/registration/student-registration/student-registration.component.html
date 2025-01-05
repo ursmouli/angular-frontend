@@ -31,8 +31,38 @@
       </div>
       <br />
 
-      <!-- parents details -->
       <!-- guardian details -->
+      <mat-divider></mat-divider>
+      <h3>Guardian Details</h3>
+      <div formArrayName="guardians" class="sibling-container">
+        <div *ngFor="let garudian of guardians.controls; let i = index" [formGroupName]="i" class="sibling-fields">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Guardian Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter guardian name" />
+            <mat-error *ngIf="garudian.get('name')?.hasError('required')">Guardian Name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Guardian Phone</mat-label>
+            <input matInput formControlName="phone" placeholder="Enter guardian phone" />
+            <mat-error *ngIf="garudian.get('phone')?.hasError('required')">Guardian Phone is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Guardian Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter guardian email" />
+            <mat-error *ngIf="garudian.get('email')?.hasError('required')">Guardian Email is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Guardian Relation</mat-label>
+            <mat-select formControlName="relation" placeholder="Select guardian relation">
+              <mat-option *ngFor="let relation of relationships" [value]="relation.key">{{relation.value}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="garudian.get('relation')?.hasError('required')">Guardian Relation is required</mat-error>
+          </mat-form-field>
+          <mat-checkbox formControlName="primaryContact">Primary Contact</mat-checkbox>
+          <button mat-button color="warn" (click)="removeGuardian(i)">Remove</button>
+        </div>
+        <button mat-raised-button color="primary" (click)="addGuardian()">Add Guardian</button>
+      </div>
       
 
       <!-- siblings details -->
@@ -50,6 +80,14 @@
             <input matInput formControlName="age" placeholder="Enter sibling age" />
             <mat-error *ngIf="sibling.get('age')?.hasError('required')">Sibling Age is required</mat-error>
           </mat-form-field>
+          <mat-checkbox formControlName="isStudying">Is Studying</mat-checkbox>
+          <div *ngIf="sibling.get('isStudying')?.value">
+            <mat-form-field appearance="fill">
+              <mat-label>School Name</mat-label>
+              <input matInput formControlName="schoolName" placeholder="Enter school name" />
+              <mat-error *ngIf="sibling.get('schoolName')?.hasError('required')">School Name is required</mat-error>
+            </mat-form-field>
+          </div>
           <button mat-button color="warn" (click)="removeSibling(i)">Remove</button>
         </div>
         <button mat-raised-button color="primary" (click)="addSibling()">Add Sibling</button>
