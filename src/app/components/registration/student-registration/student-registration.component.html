@@ -17,13 +17,21 @@
         <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
       </mat-form-field>
 
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dob" placeholder="Enter date of birth" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="registrationForm.get('dob')?.hasError('required')">Date of Birth is required</mat-error>
+      </mat-form-field>
+
       <!-- permanent address -->
       <mat-divider></mat-divider>
       <h3>Permanent Address</h3>
       <app-address [addressForm]="permanentAddress" class="full-width"></app-address>
 
       <!-- residential address -->
-      <mat-checkbox formControlName="sameAsPermanentAddress">Same as Permanent Address</mat-checkbox>
+      <mat-checkbox formControlName="sameAsPermanentAddress" (change)="onSameAsPermanentAddrChange()">Same as Permanent Address</mat-checkbox>
       <mat-divider></mat-divider>
       <div *ngIf="!registrationForm.get('sameAsPermanentAddress')?.value">
         <h3>Residential Address</h3>
@@ -48,15 +56,19 @@
           </mat-form-field>
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Guardian Email</mat-label>
-            <input matInput formControlName="email" placeholder="Enter guardian email" />
+            <input type="email" matInput formControlName="email" placeholder="Enter guardian email" />
             <mat-error *ngIf="garudian.get('email')?.hasError('required')">Guardian Email is required</mat-error>
+            <mat-error *ngIf="garudian.get('email')?.hasError('email')">
+              Please enter valid email.
+            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Guardian Relation</mat-label>
             <mat-select formControlName="relation" placeholder="Select guardian relation">
-              <mat-option *ngFor="let relation of relationships" [value]="relation.key">{{relation.value}}</mat-option>
+              <mat-option *ngFor="let relation of commonService.getRelationships()" [value]="relation.key">{{relation.value}}</mat-option>
             </mat-select>
             <mat-error *ngIf="garudian.get('relation')?.hasError('required')">Guardian Relation is required</mat-error>
+            
           </mat-form-field>
           <mat-checkbox formControlName="primaryContact">Primary Contact</mat-checkbox>
           <button mat-button color="warn" (click)="removeGuardian(i)">Remove</button>
@@ -92,10 +104,18 @@
         </div>
         <button mat-raised-button color="primary" (click)="addSibling()">Add Sibling</button>
       </div>
-    
-      <button mat-raised-button color="primary" 
-        (click)="onSubmit()" 
-        [disabled]="!isValidForm()">Submit</button>
+
+      <br />
+      <div class="horizontally-spaced">
+        <button mat-raised-button color="primary" 
+          (click)="onSubmit()" 
+          [disabled]="!isValidForm()">Submit</button>
+
+        <button mat-raised-button color="warn" 
+          (click)="clearForm()">Reset</button>
+      </div>
+      
+
     </form>
   </div> 
 </div>

@@ -27,3 +27,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .gender-group {
   margin: 16px 0;
 }
+
+.horizontally-spaced {
+  display: flex;
+  justify-content: space-around;
+  align-items: left;
+}
