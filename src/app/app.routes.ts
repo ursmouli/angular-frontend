@@ -8,6 +8,7 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
 import { StudentRegistrationComponent } from './components/registration/student-registration/student-registration.component';
+import { StudentListComponent } from './components/student-list/student-list.component';
 
 export const routes: Routes = [
     {
@@ -33,6 +34,10 @@ export const routes: Routes = [
     {
       path: 'studentregistration', 
       component: StudentRegistrationComponent
+    },
+    {
+      path: 'studentlist',
+      component: StudentListComponent,
     },
     { path: 'forbidden', component: ForbiddenComponent },
     { path: '**', redirectTo: 'login' } // Default route

@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { StudentListReponse } from '../dto/student-list-reponse';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,7 @@ import { inject, Injectable } from '@angular/core';
 export class StudentService {
 
   http = inject(HttpClient);
+  api = 'http://localhost:8005/api/student';
 
   constructor() { }
 
@@ -14,8 +17,9 @@ export class StudentService {
     // Add student to the database
   }
 
-  getStudents() {
-    // Get all students from the database
+  getStudents(page: number, pageSize: number): Promise<StudentListReponse> {
+    const body = { page, pageSize };
+    return lastValueFrom(this.http.post<StudentListReponse>(`${this.api}/all`, body));
   }
 
   getStudentById(id: number) {

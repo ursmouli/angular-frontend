@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { LoginResponse } from '../../dto/login.response';
+import { LoginResponse } from '../../dto/login-response';
 import { Router } from '@angular/router';
 
 
