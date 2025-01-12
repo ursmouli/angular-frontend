@@ -21,22 +21,33 @@ export class StudentListComponent {
   displayedColumns: string[] = ['id', 'name', 'age', 'actions'];
   dataSource!: MatTableDataSource<Student>;
 
+  totalElements: number = 0;
+  pageSize: number = 5;
+
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   ngOnInit() {
-    this.getStudents();
+    this.paginator.page.subscribe(() => this.laodStudents());
+    this.laodStudents();
   }
 
   ngAfterViewInit() {
   }
 
-  getStudents() {
-    this.studentService.getStudents(0, 5).then((response) => {
+  laodStudents() {
+    const iPageIndex = this.paginator.pageIndex;
+    const iPageSize = this.paginator.pageSize ? this.paginator.pageSize : this.pageSize;
+
+    console.log('pageSize and pageIndex', iPageSize, iPageIndex);
+
+    this.studentService.getStudents(iPageIndex, iPageSize).then((response) => {
       console.log('Students: ', response);
       const students: Student[] = response.content;
       this.dataSource = new MatTableDataSource<Student>(students);
-      this.setSortPagination();
+
+      this.totalElements = response.totalElements;
+      this.pageSize = response.size;
     }).catch((error) => { console.error(error) });
   }
 

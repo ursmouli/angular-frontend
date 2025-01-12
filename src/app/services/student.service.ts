@@ -18,7 +18,10 @@ export class StudentService {
   }
 
   getStudents(page: number, pageSize: number): Promise<StudentListReponse> {
-    const body = { page, pageSize };
+    const body = {
+      "page": page,
+      "size": pageSize
+    };
     return lastValueFrom(this.http.post<StudentListReponse>(`${this.api}/all`, body));
   }
 
