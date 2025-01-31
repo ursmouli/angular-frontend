@@ -2,13 +2,14 @@ import { Address } from "./address";
 import { Guardian } from "./guardian";
 
 export interface Student {
-    id: number;
+    id?: number;
     firstName: string;
     middleName: string;
     lastName: string;
     dob: Date;
-    registrationNumber: string;
+    registrationNumber?: string;
     permanentAddress: Address;
     residentialAddress: Address;
+    sameAsPermanentAddress: boolean;
     guardians: Guardian[];
 }

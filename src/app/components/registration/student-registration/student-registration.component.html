@@ -10,6 +10,11 @@
         <input matInput formControlName="firstName" placeholder="Enter first name" />
         <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">First Name is required</mat-error>
       </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Middle Name</mat-label>
+        <input matInput formControlName="middleName" placeholder="Enter middle name" />
+      </mat-form-field>
     
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Last Name</mat-label>
@@ -65,7 +70,7 @@
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Guardian Relation</mat-label>
             <mat-select formControlName="relation" placeholder="Select guardian relation">
-              <mat-option *ngFor="let relation of commonService.getRelationships()" [value]="relation.key">{{relation.value}}</mat-option>
+              <mat-option *ngFor="let relation of relationships" [value]="relation.key">{{relation.value}}</mat-option>
             </mat-select>
             <mat-error *ngIf="garudian.get('relation')?.hasError('required')">Guardian Relation is required</mat-error>
             

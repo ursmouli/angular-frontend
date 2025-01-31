@@ -16,7 +16,7 @@ export class AppComponent {
   title = 'angular-frontend';
   isHideHeaderFooter: boolean = false;
 
-  hiddenToolbarRoutes = ['/login', '/register'];
+  hiddenToolbarRoutes = ['/login', '/userregistration', '/studentregistration'];
 
   constructor(private router: Router) {
     this.router.events.subscribe(() => {

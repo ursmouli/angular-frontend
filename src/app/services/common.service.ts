@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { of, firstValueFrom } from 'rxjs'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -55,7 +57,8 @@ export class CommonService {
   getDistricts(stateCode: string) {
   }
 
-  getRelationships() {
-    return this.relationships;
+  async getRelationships() {
+    // replace of with http url
+    return await firstValueFrom(of(this.relationships));
   }
 }

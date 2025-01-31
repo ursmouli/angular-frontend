@@ -14,6 +14,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonService } from '../../../services/common.service';
+import { StudentService } from '../../../services/student.service';
+import { Student } from '../../../dto/student';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-registration',
@@ -37,11 +40,17 @@ import { CommonService } from '../../../services/common.service';
 })
 export class StudentRegistrationComponent {
 
+  relationships: any;
+
   registrationForm!: FormGroup;
   permanentAddress!: FormGroup;
   residentialAddress!: FormGroup;
 
   commonService = inject(CommonService);
+
+  studentService = inject(StudentService);
+
+  router = inject(Router);
 
   // Store the initial state of the form
   initialFormValues: any;
@@ -49,12 +58,13 @@ export class StudentRegistrationComponent {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-
+    this.getReleationships();
     this.registrationForm = this.fb.group({
       firstName: ['', Validators.required],
+      middleName: [''],
       lastName: ['', Validators.required],
       dob: ['', Validators.required],
-      pAddress: this.fb.group({
+      permanentAddress: this.fb.group({
         street: ['', Validators.required],
         city: ['', Validators.required],
         district: ['', Validators.required],
@@ -62,7 +72,7 @@ export class StudentRegistrationComponent {
         postalcode: ['', Validators.required],
         country: ['', Validators.required]
       }),
-      rAddress: this.fb.group({
+      residentialAddress: this.fb.group({
         street: ['', Validators.required],
         city: ['', Validators.required],
         district: ['', Validators.required],
@@ -81,14 +91,14 @@ export class StudentRegistrationComponent {
         })
       ]),
       siblings: this.fb.array([]),
-
     });
 
-    this.permanentAddress = this.registrationForm.get('pAddress') as FormGroup;
-    this.residentialAddress = this.registrationForm.get('rAddress') as FormGroup;
+    this.permanentAddress = this.registrationForm.get('permanentAddress') as FormGroup;
+    this.residentialAddress = this.registrationForm.get('residentialAddress') as FormGroup;
 
     // Save the initial state of the form
     this.initialFormValues = this.registrationForm.getRawValue();
+    
   }
 
   get siblings() {
@@ -99,11 +109,16 @@ export class StudentRegistrationComponent {
     return this.registrationForm.get('guardians') as FormArray;
   }
 
+  async getReleationships() {
+    this.relationships = await this.commonService.getRelationships();
+    // console.log(this.relationships);
+  }
+
   onSameAsPermanentAddrChange() {
     if (this.registrationForm.get('sameAsPermanentAddress')!.value) {
-      this.registrationForm.get('rAddress')!.disable();
+      this.registrationForm.get('residentialAddress')!.disable();
     } else {
-      this.registrationForm.get('rAddress')!.enable();
+      this.registrationForm.get('residentialAddress')!.enable();
     }
   }
 
@@ -139,7 +154,34 @@ export class StudentRegistrationComponent {
   }
 
   onSubmit() {
-    throw new Error('Method not implemented.');
+    if (this.isValidForm()) {
+      console.log(this.registrationForm.value);
+
+      const formValues = this.registrationForm.value;
+
+      const student: Student = {
+        firstName: formValues.firstName,
+        middleName: formValues.middleName,
+        lastName: formValues.lastName,
+        dob: formValues.dob,
+        permanentAddress: formValues.permanentAddress,
+        residentialAddress: formValues.residentialAddress,
+        sameAsPermanentAddress: formValues.sameAsPermanentAddress,
+        guardians: formValues.guardians
+      }
+
+      console.log(student);
+
+      this.studentService.addStudent(student).then((response) => {
+        console.log(response);
+        this.clearForm();
+
+        this.router.navigate(['/studentlist']);
+      }, (error) => {
+        console.log(error);
+      });
+      
+    }
   }
 
   clearForm() {
