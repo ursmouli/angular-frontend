@@ -9,6 +9,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
 import { StudentRegistrationComponent } from './components/registration/student-registration/student-registration.component';
 import { StudentListComponent } from './components/student-list/student-list.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
     {
@@ -21,7 +22,11 @@ export const routes: Routes = [
       path: 'admin', 
       component: AdminComponent, 
       canActivate: [AuthGuard], 
-      data: { roles: [Roles.ADMIN] } 
+      data: { roles: [Roles.ADMIN] } ,
+      children: [
+        { path: 'dashboard', component: AdminDashboardComponent },
+        { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+      ]
     },
     {
       path: 'user', 

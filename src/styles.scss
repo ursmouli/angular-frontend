@@ -1,23 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  min-width: 600px; /* Minimum width */
+  // max-width: 1200px; /* Maximum width */
+  margin: 0 auto; /* Center the content horizontally */
+  // padding: 20px; /* Optional: Add some padding */
+  box-sizing: border-box; /* Ensure padding is included in the width/height */
+  overflow: auto; /* Add scrollbars if content overflows */
+}
+
+@media (min-width: 600px) {
+  body {
+    min-width: 600px;
+  }
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.view-container {
+  // display: flex;
+  // // height: 100%;
+  // min-height: 600px;
+  height: 100vh;
+}
 
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  
 }
 
 .registration-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 16px;
-}
-
-.registration-header {
-  
 }
 
 .full-width {

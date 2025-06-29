@@ -1,12 +1,9 @@
-<ng-container *ngIf="!isHideHeaderFooter; else loadingTemplate" class="container">
-  <app-header></app-header>
 
-  <!-- <router-outlet /> -->
-
-  <app-footer></app-footer>
+<ng-container *ngIf="isHideHeaderFooter; else headlessTemplate" class="container">
+  <app-headless-layout />
 </ng-container>
 
-<ng-template #loadingTemplate>
-  <router-outlet />
+<ng-template #headlessTemplate>
+  <app-layout />
 </ng-template>
 

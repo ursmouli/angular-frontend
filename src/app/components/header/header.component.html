@@ -1,33 +1,17 @@
-<div class="example-container" [class.example-is-mobile]="isMobile()">
-  <mat-toolbar color="primary" class="header-toolbar">
-    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    <span class="logo">MyApp</span>
-    <span class="spacer"></span>
-    <nav class="menu">
-      <a mat-button routerLink="/" routerLinkActive="active">Home</a>
-      <a mat-button routerLink="/about" routerLinkActive="active">About</a>
-      <a mat-button routerLink="/services" routerLinkActive="active">Services</a>
-      <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
-      <a mat-button (click)="logout()"><mat-icon>logout</mat-icon>  Logout</a>
-    </nav>
-  </mat-toolbar>
-
-  <mat-sidenav-container class="example-sidenav-container"
-                        [style.marginTop.px]="isMobile() ? 56 : 0">
-    <mat-sidenav #snav [mode]="isMobile() ? 'over' : 'side'"
-                [fixedInViewport]="isMobile()" fixedTopGap="56">
-      <mat-nav-list>
-        @for (nav of fillerNav; track nav) {
-          <a mat-list-item routerLink=".">{{nav}}</a>
-        }
-      </mat-nav-list>
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+<mat-toolbar color="primary" class="header-toolbar">
+  <button mat-icon-button (click)="toggleSidenav()"><mat-icon>menu</mat-icon></button>
+  <span class="header-logo">MyApp</span>
+  <span class="header-spacer"></span>
+  <nav class="header-menu">
+    <a mat-button routerLink="/" routerLinkActive="active">Home</a>
+    <a mat-button routerLink="/about" routerLinkActive="active">About</a>
+    <a mat-button routerLink="/services" routerLinkActive="active">Services</a>
+    <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+    <!-- if user is active then logout else login -->
+    <a *ngIf="isUserLoggedIn()" mat-button (click)="logout()"><mat-icon>logout</mat-icon>  Logout</a>
+    <a *ngIf="!isUserLoggedIn()" mat-button routerLink="/login" routerLinkActive="active"><mat-icon>login</mat-icon>  Login</a>
+  </nav>
+</mat-toolbar>
 
 
 

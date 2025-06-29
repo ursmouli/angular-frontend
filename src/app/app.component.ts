@@ -2,12 +2,12 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { HeaderComponent } from "./components/header/header.component";
-import { FooterComponent } from "./components/footer/footer.component";
+import { LayoutComponent } from "./components/layout/layout.component";
+import { HeadlessLayoutComponent } from './components/headless-layout/headless-layout.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggleModule, HeaderComponent, FooterComponent, FooterComponent, CommonModule],
+  imports: [MatSlideToggleModule, CommonModule, LayoutComponent, HeadlessLayoutComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginResponse } from '../dto/login-response';
 import { jwtDecode } from 'jwt-decode';
+import { UserRegistration } from '../dto/user-registration';
 
 
 @Injectable({
@@ -16,8 +17,12 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(credentials: { email: string, password: string }): Observable<LoginResponse> {
-    console.log('Login with email: ', credentials.email, ' and password: ', credentials.password);
+    console.log(`Login with email: ${credentials.email} and password: ${credentials.password}`);
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials);
+  }
+
+  signup(userReg: UserRegistration) {
+    return this.http.post<UserRegistration>(`${this.apiUrl}/signup`, userReg);
   }
 
   storeToken(token: string) {
